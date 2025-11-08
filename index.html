@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Flirty Roasts - Practice</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const Mic = ({ size = 20, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+        );
+
+        const MicOff = ({ size = 20, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="2" y1="2" x2="22" y2="22"></line>
+                <path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"></path>
+                <path d="M5 10v2a7 7 0 0 0 12 5"></path>
+                <path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"></path>
+                <path d="M9 9v3a3 3 0 0 0 5.12 2.12"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+        );
+
+        const Volume2 = ({ size = 20, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+        );
+
+        const RotateCcw = ({ size = 16, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+            </svg>
+        );
+
+        const CheckCircle = ({ size = 20, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22,4 12,14.01 9,11.01"></polyline>
+            </svg>
+        );
+
+        const XCircle = ({ size = 20, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+        );
+
+        const Heart = ({ size = 28, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+        );
+
+        const Users = ({ size = 20, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+        );
+
+        const MessageCircle = ({ size = 20, className = "" }) => (
+            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+        );
+
+        const EnglishRoastApp = () => {
+            const [currentTask, setCurrentTask] = useState(null);
+            const [userAnswer, setUserAnswer] = useState('');
+            const [showResult, setShowResult] = useState(null);
+            const [score, setScore] = useState({ correct: 0, total: 0 });
+            const [isRecording, setIsRecording] = useState(false);
+            const [activeTab, setActiveTab] = useState('tasks');
+            const [selectedCategory, setSelectedCategory] = useState('all');
+
+            const vocabulary = {
+                basic: {
+                    'low maintenance': {
+                        definition: 'неприхотливый/ая, нетребовательный/ая',
+                        example: 'She says she is low maintenance, but she needs everything perfect (Она говорит, что неприхотливая, но ей нужно, чтобы всё было идеально)',
+                        forms: 'Используется для описания людей, которые мало требуют от других',
+                        phrases: ['high maintenance (очень требовательный)', 'low-key (спокойный, скромный)']
+                    },
+                    'main character energy': {
+                        definition: 'энергия главного героя (чувствовать себя центром вселенной)',
+                        example: 'You have got main character energy (У тебя энергия главного героя)',
+                        forms: 'Популярное выражение в соцсетях - человек ведёт себя как главный герой фильма о своей жизни',
+                        phrases: ['main character syndrome', 'protagonist vibes']
+                    },
+                    'didn\'t get the memo': {
+                        definition: 'не получил уведомление (идиома: не в курсе, не знает)',
+                        example: 'Your Wi-Fi didn\'t get the memo (Твой Wi-Fi не в курсе)',
+                        forms: 'Ироничное выражение - когда кто-то или что-то не соответствует ожиданиям',
+                        phrases: ['missed the memo', 'out of the loop (не в курсе)']
+                    },
+                    'take forever': {
+                        definition: 'занимать вечность, очень долго делать что-то',
+                        example: 'You take forever to reply (Ты вечность отвечаешь)',
+                        forms: 'take forever + to + verb (инфинитив)',
+                        phrases: ['takes ages', 'takes a long time']
+                    }
+                },
+                bali: {
+                    'emotionally spiral': {
+                        definition: 'эмоциональная спираль (впадать в эмоциональное состояние)',
+                        example: 'You meditate for 10 minutes and then emotionally spiral for 2 hours (Ты медитируешь 10 минут, а потом 2 часа в эмоциональной спирали)',
+                        forms: 'spiral = закручиваться, идти по спирали (обычно вниз)',
+                        phrases: ['spiral out of control', 'downward spiral']
+                    },
+                    'didn\'t text back': {
+                        definition: 'не ответил(а) на сообщение',
+                        example: 'Someone didn\'t text back (Кто-то не ответил на сообщение)',
+                        forms: 'text back = ответить на текстовое сообщение (phrasal verb)',
+                        phrases: ['text me back', 'message back', 'get back to me']
+                    },
+                    'focusing on myself': {
+                        definition: 'фокусироваться на себе',
+                        example: 'I am focusing on myself this time (Я фокусируюсь на себе в этот раз)',
+                        forms: 'focus on + object/gerund (существительное или герундий)',
+                        phrases: ['work on myself', 'prioritize myself']
+                    },
+                    'emotional stability': {
+                        definition: 'эмоциональная стабильность',
+                        example: 'A guy with zero emotional stability (Парень с нулевой эмоциональной стабильностью)',
+                        forms: 'stability = стабильность, устойчивость (существительное)',
+                        phrases: ['emotionally stable', 'mental stability']
+                    }
+                },
+                savage: {
+                    'plot twists': {
+                        definition: 'повороты сюжета, неожиданные события',
+                        example: 'Your love life has more plot twists than a Netflix thriller (В твоей личной жизни больше поворотов, чем в триллере Netflix)',
+                        forms: 'plot twist = неожиданный поворот событий',
+                        phrases: ['unexpected turn', 'surprise twist']
+                    },
+                    'emotionally unavailable': {
+                        definition: 'эмоционально недоступный',
+                        example: 'Emotionally unavailable men with good jawlines (Эмоционально недоступные мужчины с красивой челюстью)',
+                        forms: 'unavailable = недоступный (прилагательное)',
+                        phrases: ['emotionally distant', 'commitment issues']
+                    },
+                    'toxic energy': {
+                        definition: 'токсичная энергия',
+                        example: 'I am done with toxic energy (Я покончила с токсичной энергией)',
+                        forms: 'toxic = ядовитый, токсичный (прилагательное)',
+                        phrases: ['toxic person', 'negative vibes', 'bad energy']
+                    },
+                    'sky-high': {
+                        definition: 'очень высокий, заоблачный',
+                        example: 'Your standards are sky-high (Твои стандарты очень высокие)',
+                        forms: 'сложное прилагательное (hyphenated adjective)',
+                        phrases: ['extremely high', 'through the roof']
+                    }
+                },
+                romantic: {
+                    'get attached': {
+                        definition: 'привязаться (эмоционально)',
+                        example: 'You get emotionally attached to a guy (Ты эмоционально привязываешься к парню)',
+                        forms: 'get attached to + somebody/something',
+                        phrases: ['become attached', 'form an attachment', 'catch feelings']
+                    },
+                    'keep the mystery alive': {
+                        definition: 'поддерживать интригу, оставаться загадочной',
+                        example: 'Pretending you didn\'t see the message to keep the mystery alive (Притворяешься, что не видела сообщение, чтобы оставаться загадочной)',
+                        forms: 'keep + object + adjective (держать что-то в каком-то состоянии)',
+                        phrases: ['stay mysterious', 'remain enigmatic']
+                    },
+                    'chakras aligned': {
+                        definition: 'чакры выровнены (шутливо: идеальная совместимость)',
+                        example: 'Your chakras are already aligned (Твои чакры уже выровнены)',
+                        forms: 'aligned = выровнены, на одной линии',
+                        phrases: ['energies match', 'vibes align', 'on the same wavelength']
+                    },
+                    'fall for someone': {
+                        definition: 'влюбиться в кого-то',
+                        example: 'When he finally falls for you (Когда он наконец в тебя влюбится)',
+                        forms: 'fall for + somebody (phrasal verb)',
+                        phrases: ['fall in love with', 'develop feelings for']
+                    }
+                }
+            };
+
+            const sampleTasks = [
+                // Basic expressions
+                {type:'translation_en_ru',category:'basic',question:'Translate: "low maintenance"',answer:'неприхотливая',alternatives:['неприхотливая','нетребовательная','неприхотливый'],word:'low maintenance'},
+                {type:'translation_ru_en',category:'basic',question:'Переведите: "энергия главного героя"',answer:'main character energy',alternatives:['main character energy'],word:'main character energy'},
+                {type:'multiple_choice',category:'basic',question:'Your Wi-Fi didn\'t ___ the memo',options:['get','take','have','make'],correct:0,word:'didn\'t get the memo'},
+                {type:'fill_blanks',category:'basic',question:'Fill in: You ___ forever to reply',answer:'take',hint:'(verb for spending time)',word:'take forever'},
+                {type:'translation_en_ru',category:'basic',question:'Translate: "You think you are mysterious"',answer:'ты думаешь что ты загадочная',alternatives:['ты думаешь что ты загадочная','ты думаешь ты загадочная','ты считаешь себя загадочной'],word:'mysterious'},
+                
+                // Bali lifestyle
+                {type:'translation_en_ru',category:'bali',question:'Translate: "emotionally spiral"',answer:'эмоциональная спираль',alternatives:['эмоциональная спираль','впадать в эмоции','эмоционально срываться'],word:'emotionally spiral'},
+                {type:'multiple_choice',category:'bali',question:'Someone didn\'t ___ back',options:['text','texting','texted','texts'],correct:0,word:'didn\'t text back'},
+                {type:'translation_ru_en',category:'bali',question:'Переведите: "Я фокусируюсь на себе"',answer:'i am focusing on myself',alternatives:['i am focusing on myself','i focus on myself'],word:'focusing on myself'},
+                {type:'fill_blanks',category:'bali',question:'Fill in: A guy with zero emotional ___',answer:'stability',hint:'(noun: стабильность)',word:'emotional stability'},
+                {type:'situational',category:'bali',question:'Situation: Your friend meditates but then worries for hours. What do you say?',context:'Use "emotionally spiral"',expectedElements:['spiral','emotionally'],word:'emotionally spiral'},
+                {type:'listening',category:'bali',question:'Listen and repeat: "I\'m focusing on myself this time"',audio:'I\'m focusing on myself this time',word:'focusing on myself'},
+                
+                // Savage expressions
+                {type:'translation_en_ru',category:'savage',question:'Translate: "plot twists"',answer:'повороты сюжета',alternatives:['повороты сюжета','неожиданные повороты'],word:'plot twists'},
+                {type:'multiple_choice',category:'savage',question:'___ unavailable men',options:['Emotionally','Emotional','Emotion','Emotions'],correct:0,word:'emotionally unavailable'},
+                {type:'translation_ru_en',category:'savage',question:'Переведите: "токсичная энергия"',answer:'toxic energy',alternatives:['toxic energy','toxic vibes'],word:'toxic energy'},
+                {type:'fill_blanks',category:'savage',question:'Fill in: Your standards are ___-high',answer:'sky',hint:'(очень высокие стандарты)',word:'sky-high'},
+                {type:'situational',category:'savage',question:'Situation: Describe someone who is never emotionally available',context:'Use the adjective form',expectedElements:['emotionally unavailable','unavailable'],word:'emotionally unavailable'},
+                {type:'listening',category:'savage',question:'Listen and repeat: "I\'m done with toxic energy"',audio:'I\'m done with toxic energy',word:'toxic energy'},
+                
+                // Romantic/flirty
+                {type:'translation_en_ru',category:'romantic',question:'Translate: "get emotionally attached"',answer:'эмоционально привязаться',alternatives:['эмоционально привязаться','привязаться эмоционально'],word:'get attached'},
+                {type:'multiple_choice',category:'romantic',question:'Keep the mystery ___',options:['alive','live','living','life'],correct:0,word:'keep the mystery alive'},
+                {type:'translation_ru_en',category:'romantic',question:'Переведите: "влюбиться в кого-то"',answer:'fall for someone',alternatives:['fall for someone','fall in love with someone'],word:'fall for someone'},
+                {type:'fill_blanks',category:'romantic',question:'Fill in: Your chakras are already ___',answer:'aligned',hint:'(выровнены)',word:'chakras aligned'},
+                {type:'situational',category:'romantic',question:'Situation: He finally loves you. How to say it using phrasal verb?',context:'Use "fall for"',expectedElements:['fall','for'],word:'fall for someone'},
+                {type:'listening',category:'romantic',question:'Listen and repeat: "When he finally falls for you"',audio:'When he finally falls for you',word:'fall for someone'},
+                
+                // Mixed/Advanced
+                {type:'multiple_choice',category:'all',question:'She says "I\'m ___ looking for drama"',options:['not','no','none','never'],correct:0,word:'mixed'},
+                {type:'translation_en_ru',category:'all',question:'Translate: "Your phone battery dies faster than your interest"',answer:'твоя батарея телефона садится быстрее чем твой интерес',alternatives:['твоя батарея телефона садится быстрее чем твой интерес','батарея телефона разряжается быстрее интереса'],word:'mixed'},
+                {type:'situational',category:'all',question:'Situation: Roast someone who says they want peace but creates drama',context:'Be creative and use vocabulary from lessons',expectedElements:['drama','peace','energy','toxic'],word:'mixed'}
+            ];
+
+            const generateRandomTask = () => {
+                const filteredTasks = selectedCategory === 'all' 
+                    ? sampleTasks 
+                    : sampleTasks.filter(task => task.category === selectedCategory);
+                
+                const randomTask = filteredTasks[Math.floor(Math.random() * filteredTasks.length)];
+                setCurrentTask({...randomTask, id: Date.now()});
+                setUserAnswer('');
+                setShowResult(null);
+            };
+
+            const checkAnswer = () => {
+                if (!currentTask) return;
+                
+                let isCorrect = false;
+                
+                switch(currentTask.type) {
+                    case 'multiple_choice':
+                        isCorrect = parseInt(userAnswer) === currentTask.correct;
+                        break;
+                    case 'translation_ru_en':
+                    case 'translation_en_ru':
+                    case 'fill_blanks':
+                        const normalizedAnswer = userAnswer.toLowerCase().trim();
+                        if (currentTask.alternatives) {
+                            isCorrect = currentTask.alternatives.some(alt => 
+                                alt.toLowerCase() === normalizedAnswer
+                            );
+                        } else {
+                            isCorrect = normalizedAnswer === currentTask.answer.toLowerCase();
+                        }
+                        break;
+                    case 'situational':
+                        isCorrect = currentTask.expectedElements.some(element =>
+                            userAnswer.toLowerCase().includes(element.toLowerCase())
+                        );
+                        break;
+                    default:
+                        isCorrect = true;
+                }
+                
+                setScore(prev => ({
+                    correct: prev.correct + (isCorrect ? 1 : 0),
+                    total: prev.total + 1
+                }));
+                
+                setShowResult(isCorrect);
+            };
+
+            const speakText = (text) => {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.8;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 1.0;
+                    
+                    const setVoice = () => {
+                        const voices = window.speechSynthesis.getVoices();
+                        const preferredVoices = [
+                            voices.find(voice => voice.name.toLowerCase().includes('google') && voice.lang.startsWith('en')),
+                            voices.find(voice => voice.name.toLowerCase().includes('microsoft') && voice.lang.startsWith('en')),
+                            voices.find(voice => voice.lang === 'en-US'),
+                            voices.find(voice => voice.lang.startsWith('en'))
+                        ];
+                        
+                        const selectedVoice = preferredVoices.find(voice => voice !== undefined);
+                        if (selectedVoice) utterance.voice = selectedVoice;
+                        
+                        try {
+                            window.speechSynthesis.speak(utterance);
+                        } catch (error) {
+                            console.error('Speech error:', error);
+                        }
+                    };
+                    
+                    if (window.speechSynthesis.getVoices().length > 0) {
+                        setVoice();
+                    } else {
+                        window.speechSynthesis.onvoiceschanged = () => {
+                            setVoice();
+                            window.speechSynthesis.onvoiceschanged = null;
+                        };
+                        setTimeout(() => {
+                            if (window.speechSynthesis.getVoices().length === 0) {
+                                window.speechSynthesis.speak(utterance);
+                            }
+                        }, 1000);
+                    }
+                }
+            };
+
+            const startRecording = async () => {
+                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                    alert('Your browser does not support speech recognition. Try Chrome or Edge.');
+                    return;
+                }
+
+                try {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    const recognition = new SpeechRecognition();
+                    
+                    recognition.lang = 'en-US';
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+                    
+                    recognition.onstart = () => {
+                        setIsRecording(true);
+                        setUserAnswer('Speak now...');
+                    };
+                    
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript.trim();
+                        setUserAnswer(transcript);
+                        setIsRecording(false);
+                        
+                        if (currentTask && currentTask.type === 'listening') {
+                            setTimeout(() => {
+                                checkAnswer();
+                            }, 1000);
+                        }
+                    };
+                    
+                    recognition.onerror = (event) => {
+                        setIsRecording(false);
+                        setUserAnswer('Error: ' + event.error);
+                    };
+                    
+                    recognition.onend = () => {
+                        setIsRecording(false);
+                    };
+                    
+                    recognition.start();
+                    
+                } catch (error) {
+                    setIsRecording(false);
+                    setUserAnswer('Failed to start speech recognition');
+                }
+            };
+
+            const stopRecording = () => {
+                setIsRecording(false);
+            };
+
+            useEffect(() => {
+                generateRandomTask();
+            }, [selectedCategory]);
+
+            const renderTask = () => {
+                if (!currentTask) return null;
+
+                switch(currentTask.type) {
+                    case 'multiple_choice':
+                        return (
+                            <div className="space-y-4">
+                                <p className="text-lg font-medium">{currentTask.question}</p>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {currentTask.options.map((option, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => setUserAnswer(index.toString())}
+                                            className={`p-3 border rounded-lg transition-colors ${
+                                                userAnswer === index.toString()
+                                                    ? 'bg-pink-500 text-white'
+                                                    : 'bg-white hover:bg-pink-50'
+                                            }`}
+                                        >
+                                            {option}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    
+                    case 'listening':
+                        return (
+                            <div className="space-y-4">
+                                <p className="text-lg font-medium">{currentTask.question}</p>
+                                <button
+                                    onClick={() => speakText(currentTask.audio)}
+                                    className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                                >
+                                    <Volume2 size={20} />
+                                    Listen
+                                </button>
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        onClick={isRecording ? stopRecording : startRecording}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                                            isRecording 
+                                                ? 'bg-red-500 hover:bg-red-600' 
+                                                : 'bg-blue-500 hover:bg-blue-600'
+                                        } text-white`}
+                                    >
+                                        {isRecording ? <MicOff size={20} /> : <Mic size={20} />}
+                                        {isRecording ? 'Stop' : 'Record'}
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    
+                    case 'situational':
+                        return (
+                            <div className="space-y-4">
+                                <div className="bg-purple-50 p-4 rounded-lg">
+                                    <h3 className="font-semibold text-purple-800">Situation:</h3>
+                                    <p className="text-purple-700">{currentTask.question}</p>
+                                    {currentTask.context && (
+                                        <p className="text-sm text-purple-600 mt-2">
+                                            Context: {currentTask.context}
+                                        </p>
+                                    )}
+                                </div>
+                                <textarea
+                                    value={userAnswer}
+                                    onChange={(e) => setUserAnswer(e.target.value)}
+                                    placeholder="Type your answer..."
+                                    className="w-full p-3 border border-gray-300 rounded-lg"
+                                    rows="3"
+                                />
+                            </div>
+                        );
+                    
+                    default:
+                        return (
+                            <div className="space-y-4">
+                                <p className="text-lg font-medium">{currentTask.question}</p>
+                                {currentTask.hint && (
+                                    <p className="text-sm text-gray-600">{currentTask.hint}</p>
+                                )}
+                                <input
+                                    type="text"
+                                    value={userAnswer}
+                                    onChange={(e) => setUserAnswer(e.target.value)}
+                                    placeholder="Type your answer..."
+                                    className="w-full p-3 border border-gray-300 rounded-lg"
+                                    onKeyPress={(e) => e.key === 'Enter' && checkAnswer()}
+                                />
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={isRecording ? stopRecording : startRecording}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                                            isRecording 
+                                                ? 'bg-red-500 hover:bg-red-600' 
+                                                : 'bg-blue-500 hover:bg-blue-600'
+                                        } text-white`}
+                                    >
+                                        {isRecording ? <MicOff size={20} /> : <Mic size={20} />}
+                                        Voice
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                }
+            };
+
+            const renderVocabulary = () => (
+                <div className="space-y-6">
+                    {Object.entries(vocabulary).map(([category, words]) => (
+                        <div key={category} className="bg-white rounded-lg p-6 shadow-sm border">
+                            <h3 className="text-xl font-semibold mb-4 text-pink-600">
+                                {category === 'basic' ? '📝 Basic Expressions' :
+                                 category === 'bali' ? '🌴 Bali Lifestyle' : 
+                                 category === 'savage' ? '🔥 Savage Mode' : '💕 Romantic/Flirty'}
+                            </h3>
+                            <div className="grid gap-4">
+                                {Object.entries(words).map(([word, info]) => (
+                                    <div key={word} className="border-l-4 border-pink-200 pl-4">
+                                        <div className="flex items-center justify-between">
+                                            <h4 className="font-semibold text-lg">{word}</h4>
+                                            <button
+                                                onClick={() => speakText(word)}
+                                                className="text-pink-500 hover:text-pink-700"
+                                            >
+                                                <Volume2 size={20} />
+                                            </button>
+                                        </div>
+                                        <p className="text-gray-600">{info.definition}</p>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <p className="text-green-700 flex-1">{info.example}</p>
+                                            <button
+                                                onClick={() => speakText(info.example.split(' (')[0])}
+                                                className="text-green-600 hover:text-green-800"
+                                            >
+                                                <Volume2 size={16} />
+                                            </button>
+                                        </div>
+                                        <div className="mt-2">
+                                            <p className="text-sm text-gray-500 mb-2">{info.forms}</p>
+                                            {info.phrases && (
+                                                <div className="space-y-1">
+                                                    {info.phrases.map((phrase, index) => (
+                                                        <div key={index} className="flex items-center gap-2">
+                                                            <span className="text-sm text-pink-600">• {phrase}</span>
+                                                            <button
+                                                                onClick={() => speakText(phrase)}
+                                                                className="text-pink-500 hover:text-pink-700"
+                                                            >
+                                                                <Volume2 size={14} />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+
+            return (
+                <div className="max-w-4xl mx-auto bg-gradient-to-b from-pink-50 to-purple-50 min-h-screen">
+                    <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-6">
+                        <h1 className="text-2xl font-bold flex items-center gap-2">
+                            <Heart size={28} />
+                            English Flirty Roasts - Practice
+                        </h1>
+                        <p className="mt-2 opacity-90">
+                            Learn savage & flirty English expressions 💅✨
+                        </p>
+                        <div className="mt-4 flex gap-4 text-sm">
+                            <span>Correct: {score.correct}</span>
+                            <span>Total: {score.total}</span>
+                            <span>Accuracy: {score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0}%</span>
+                        </div>
+                    </div>
+
+                    <div className="flex border-b bg-white">
+                        <button
+                            onClick={() => setActiveTab('tasks')}
+                            className={`flex-1 p-4 text-center font-medium ${
+                                activeTab === 'tasks' 
+                                    ? 'border-b-2 border-pink-500 text-pink-600' 
+                                    : 'text-gray-600 hover:text-gray-800'
+                            }`}
+                        >
+                            <MessageCircle className="mx-auto mb-1" size={20} />
+                            Tasks
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('vocabulary')}
+                            className={`flex-1 p-4 text-center font-medium ${
+                                activeTab === 'vocabulary' 
+                                    ? 'border-b-2 border-pink-500 text-pink-600' 
+                                    : 'text-gray-600 hover:text-gray-800'
+                            }`}
+                        >
+                            <Users className="mx-auto mb-1" size={20} />
+                            Vocabulary
+                        </button>
+                    </div>
+
+                    <div className="p-6">
+                        {activeTab === 'tasks' && (
+                            <div className="space-y-6">
+                                <div className="flex gap-2 flex-wrap">
+                                    <button
+                                        onClick={() => setSelectedCategory('all')}
+                                        className={`px-4 py-2 rounded-lg ${
+                                            selectedCategory === 'all' 
+                                                ? 'bg-pink-500 text-white' 
+                                                : 'bg-white border hover:bg-pink-50'
+                                        }`}
+                                    >
+                                        All Categories
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedCategory('basic')}
+                                        className={`px-4 py-2 rounded-lg ${
+                                            selectedCategory === 'basic' 
+                                                ? 'bg-pink-500 text-white' 
+                                                : 'bg-white border hover:bg-pink-50'
+                                        }`}
+                                    >
+                                        📝 Basic
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedCategory('bali')}
+                                        className={`px-4 py-2 rounded-lg ${
+                                            selectedCategory === 'bali' 
+                                                ? 'bg-pink-500 text-white' 
+                                                : 'bg-white border hover:bg-pink-50'
+                                        }`}
+                                    >
+                                        🌴 Bali Life
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedCategory('savage')}
+                                        className={`px-4 py-2 rounded-lg ${
+                                            selectedCategory === 'savage' 
+                                                ? 'bg-pink-500 text-white' 
+                                                : 'bg-white border hover:bg-pink-50'
+                                        }`}
+                                    >
+                                        🔥 Savage
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedCategory('romantic')}
+                                        className={`px-4 py-2 rounded-lg ${
+                                            selectedCategory === 'romantic' 
+                                                ? 'bg-pink-500 text-white' 
+                                                : 'bg-white border hover:bg-pink-50'
+                                        }`}
+                                    >
+                                        💕 Romantic
+                                    </button>
+                                </div>
+
+                                <div className="bg-white rounded-lg p-6 shadow-sm border">
+                                    {showResult !== null && (
+                                        <div className={`mb-4 p-4 rounded-lg flex items-center gap-2 ${
+                                            showResult 
+                                                ? 'bg-green-100 text-green-800' 
+                                                : 'bg-red-100 text-red-800'
+                                        }`}>
+                                            {showResult ? <CheckCircle size={20} /> : <XCircle size={20} />}
+                                            {showResult ? 'Correct! 🎉' : `Wrong. Correct answer: ${currentTask?.answer || 'see options above'}`}
+                                        </div>
+                                    )}
+                                    
+                                    {renderTask()}
+                                    
+                                    {currentTask && (
+                                        <div className="mt-6 flex gap-3">
+                                            {showResult === null ? (
+                                                <button
+                                                    onClick={checkAnswer}
+                                                    disabled={!userAnswer.trim()}
+                                                    className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                                >
+                                                    Check
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={generateRandomTask}
+                                                    className="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 flex items-center gap-2"
+                                                >
+                                                    <RotateCcw size={16} />
+                                                    Next Task
+                                                </button>
+                                            )}
+                                            <button
+                                                onClick={generateRandomTask}
+                                                className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 flex items-center gap-2"
+                                            >
+                                                <RotateCcw size={16} />
+                                                Skip
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {currentTask?.word && vocabulary[currentTask.category]?.[currentTask.word] && (
+                                    <div className="bg-pink-50 rounded-lg p-4">
+                                        <h3 className="font-semibold text-pink-800 mb-2">Current word:</h3>
+                                        <div className="text-pink-700">
+                                            <p className="font-medium">{currentTask.word}</p>
+                                            <p className="text-sm">{vocabulary[currentTask.category][currentTask.word].forms}</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {activeTab === 'vocabulary' && renderVocabulary()}
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(React.createElement(EnglishRoastApp), document.getElementById('root'));
+    </script>
+</body>
+</html>
